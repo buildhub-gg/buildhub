@@ -1,6 +1,3 @@
-image:
-  file: .gitpod.Dockerfile
-
 tasks:
   - init: go get -v -t -d ./...
 
