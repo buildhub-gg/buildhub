@@ -1,24 +1,37 @@
 package main
 
 import (
-        "log"
-        "net/http"
+	"fmt"
+	"net/http"
 
-        graphql "github.com/graph-gophers/graphql-go"
-        "github.com/graph-gophers/graphql-go/relay"
+	"github.com/graphql-go/graphql"
+	"github.com/graphql-go/handler"
 )
 
-type query struct{}
-
-func (*query) Hello() string { return "Hello, world!" }
-
 func main() {
-        s := `
-                type Query {
-                        hello: String!
-                }
-        `
-        schema := graphql.MustParseSchema(s, &query{})
-        http.Handle("/query", &relay.Handler{Schema: schema})
-        log.Fatal(http.ListenAndServe(":8080", nil))
+	// Schema
+	fields := graphql.Fields{
+		"hello": &graphql.Field{
+			Type: graphql.String,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				return "world", nil
+			},
+		},
+	}
+	rootQuery := graphql.ObjectConfig{Name: "RootQuery", Fields: fields}
+	schemaConfig := graphql.SchemaConfig{Query: graphql.NewObject(rootQuery)}
+	schema, err := graphql.NewSchema(schemaConfig)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	
+	h := handler.New(&handler.Config{
+		Schema: &schema,
+		Pretty: true,
+		GraphiQL: true,
+	})
+
+	http.Handle("/graphql", h)
+	http.ListenAndServe(":8080", nil)
 }

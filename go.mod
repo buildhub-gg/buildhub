@@ -2,4 +2,7 @@ module github.com/TheGrizzlyDev/buildhub
 
 go 1.16
 
-require github.com/graph-gophers/graphql-go v0.0.0-20201113091052-beb923fada29
+require (
+	github.com/graphql-go/graphql v0.7.9
+	github.com/graphql-go/handler v0.2.3
+)
