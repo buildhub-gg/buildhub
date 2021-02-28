@@ -1,24 +1,57 @@
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
+enum AttributeType {
+    BOOLEAN,
+    STRING,
+    INT,
+    FLOAT
 }
 
-type User {
-  id: ID!
-  name: String!
+type AttributeSpec {
+    id: String!
+    type: AttributeType!
+}
+
+type ItemSpec {
+    id: String!
+    attributes: [AttributeSpec!]
+}
+
+interface Attribute {
+    id: String!
+}
+
+interface BooleanAttribute implements Attribute {
+    value: Boolean!
+}
+
+interface StringAttribute implements Attribute {
+    value: Boolean!
+}
+
+interface FloatAttribute implements Attribute {
+    value: Boolean!
+}
+
+interface IntAttribute implements Attribute {
+    value: Boolean!
+}
+
+type Item {
+    id: String!
+    attributes: [Attribute!]
+}
+
+type Build {
+    id: String!
+    name: String!
+    items: [Item!]
+}
+
+type NewBuild {
+    name: String!
+    items: [Item!]
 }
 
 type Query {
-  todos: [Todo!]!
-}
-
-input NewTodo {
-  text: String!
-  userId: String!
-}
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+    createBuild(build: NewBuild!): Build!
+    editBuild(build: Build!): Build!
 }
