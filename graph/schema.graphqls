@@ -7,6 +7,7 @@ enum AttributeType {
 
 type AttributeSpec {
     id: String!
+    for: String!
     type: AttributeType!
 }
 
@@ -15,25 +16,27 @@ type ItemSpec {
     attributes: [AttributeSpec!]
 }
 
-interface Attribute {
+type BooleanAttribute {
     id: String!
-}
-
-interface BooleanAttribute implements Attribute {
     value: Boolean!
 }
 
-interface StringAttribute implements Attribute {
+type StringAttribute {
+    id: String!
     value: Boolean!
 }
 
-interface FloatAttribute implements Attribute {
+type FloatAttribute {
+    id: String!
     value: Boolean!
 }
 
-interface IntAttribute implements Attribute {
+type IntAttribute {
+    id: String!
     value: Boolean!
 }
+
+union Attribute = BooleanAttribute | StringAttribute | FloatAttribute | IntAttribute 
 
 type Item {
     id: String!
@@ -46,12 +49,30 @@ type Build {
     items: [Item!]
 }
 
-type NewBuild {
+input InputAttribute {
+    id: String!
+    valueBool: Boolean
+    valueString: String
+    valueFloat: Float
+    valueInt: Int
+}
+
+input InputItem {
+    id: String!
+    attributes: [InputAttribute!]
+}
+
+input InputBuild {
     name: String!
-    items: [Item!]
+    items: [InputItem!]
 }
 
 type Query {
-    createBuild(build: NewBuild!): Build!
-    editBuild(build: Build!): Build!
+    itemsFor(target: String!): [ItemSpec!]
+    build(id: String!): Build!
+}
+
+type Mutation {
+    createBuild(build: InputBuild!): Build!
+    editBuild(id: String!, build: InputBuild!): Build!
 }

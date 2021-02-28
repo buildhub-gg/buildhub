@@ -11,11 +11,19 @@ import (
 	"github.com/TheGrizzlyDev/buildhub/graph/model"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model.InputBuild) (*model.Build, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

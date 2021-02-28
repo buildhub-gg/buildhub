@@ -2,19 +2,125 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
+type Attribute interface {
+	IsAttribute()
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+type AttributeSpec struct {
+	ID   string        `json:"id"`
+	For  string        `json:"for"`
+	Type AttributeType `json:"type"`
 }
 
-type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+type BooleanAttribute struct {
+	ID    string `json:"id"`
+	Value bool   `json:"value"`
+}
+
+func (BooleanAttribute) IsAttribute() {}
+
+type Build struct {
+	ID    string  `json:"id"`
+	Name  string  `json:"name"`
+	Items []*Item `json:"items"`
+}
+
+type FloatAttribute struct {
+	ID    string `json:"id"`
+	Value bool   `json:"value"`
+}
+
+func (FloatAttribute) IsAttribute() {}
+
+type InputAttribute struct {
+	ID          string   `json:"id"`
+	ValueBool   *bool    `json:"valueBool"`
+	ValueString *string  `json:"valueString"`
+	ValueFloat  *float64 `json:"valueFloat"`
+	ValueInt    *int     `json:"valueInt"`
+}
+
+type InputBuild struct {
+	Name  string       `json:"name"`
+	Items []*InputItem `json:"items"`
+}
+
+type InputItem struct {
+	ID         string            `json:"id"`
+	Attributes []*InputAttribute `json:"attributes"`
+}
+
+type IntAttribute struct {
+	ID    string `json:"id"`
+	Value bool   `json:"value"`
+}
+
+func (IntAttribute) IsAttribute() {}
+
+type Item struct {
+	ID         string      `json:"id"`
+	Attributes []Attribute `json:"attributes"`
+}
+
+type ItemSpec struct {
+	ID         string           `json:"id"`
+	Attributes []*AttributeSpec `json:"attributes"`
+}
+
+type StringAttribute struct {
+	ID    string `json:"id"`
+	Value bool   `json:"value"`
+}
+
+func (StringAttribute) IsAttribute() {}
+
+type AttributeType string
+
+const (
+	AttributeTypeBoolean AttributeType = "BOOLEAN"
+	AttributeTypeString  AttributeType = "STRING"
+	AttributeTypeInt     AttributeType = "INT"
+	AttributeTypeFloat   AttributeType = "FLOAT"
+)
+
+var AllAttributeType = []AttributeType{
+	AttributeTypeBoolean,
+	AttributeTypeString,
+	AttributeTypeInt,
+	AttributeTypeFloat,
+}
+
+func (e AttributeType) IsValid() bool {
+	switch e {
+	case AttributeTypeBoolean, AttributeTypeString, AttributeTypeInt, AttributeTypeFloat:
+		return true
+	}
+	return false
+}
+
+func (e AttributeType) String() string {
+	return string(e)
+}
+
+func (e *AttributeType) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = AttributeType(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid AttributeType", str)
+	}
+	return nil
+}
+
+func (e AttributeType) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }
