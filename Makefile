@@ -1,4 +1,4 @@
 run:
 	go run ./server.go
 generate:
-	gqlgen generate
+	go generate ./...

@@ -4,11 +4,16 @@ package graph
 // will be copied through when generating and any unknown code will be moved to the end.
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"os"
+	"path/filepath"
+	"github.com/TheGrizzlyDev/buildhub/items"
 
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
 	"github.com/TheGrizzlyDev/buildhub/graph/model"
+	yaml "gopkg.in/yaml.v2"
 )
 
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
@@ -20,7 +25,30 @@ func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model
 }
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
-	panic(fmt.Errorf("not implemented"))
+	var specPath string
+	var err error
+	if specPath, err = filepath.Abs(filepath.Join("items", target+".yml")); err != nil {
+		return nil, fmt.Errorf("Cannot find spec for %s", target)
+	}
+	rawSpec, err := os.ReadFile(specPath)
+	if err != nil {
+		fmt.Println(err)
+		return nil, fmt.Errorf("Cannot read spec file for %s", target)
+	}
+	result := []*model.ItemSpec{}
+	allItems := bytes.Split(rawSpec, []byte("---"))
+	for i, itemRawSpec := range allItems {
+		var item *items.ItemSpec
+		err = yaml.Unmarshal(itemRawSpec, &item)
+		if err != nil {
+			return nil, fmt.Errorf("Cannot read spec at index %v", i)
+		}
+		result = append(result, &model.ItemSpec{
+			ID: item.ID,
+			Attributes: []*model.AttributeSpec{},
+		})
+	}
+	return result, nil
 }
 
 func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, error) {

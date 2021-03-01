@@ -14,7 +14,6 @@ type Attribute interface {
 
 type AttributeSpec struct {
 	ID   string        `json:"id"`
-	For  string        `json:"for"`
 	Type AttributeType `json:"type"`
 }
 

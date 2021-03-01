@@ -45,7 +45,6 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	AttributeSpec struct {
-		For  func(childComplexity int) int
 		ID   func(childComplexity int) int
 		Type func(childComplexity int) int
 	}
@@ -120,13 +119,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
-
-	case "AttributeSpec.for":
-		if e.complexity.AttributeSpec.For == nil {
-			break
-		}
-
-		return e.complexity.AttributeSpec.For(childComplexity), true
 
 	case "AttributeSpec.id":
 		if e.complexity.AttributeSpec.ID == nil {
@@ -368,13 +360,12 @@ var sources = []*ast.Source{
 
 type AttributeSpec {
     id: String!
-    for: String!
     type: AttributeType!
 }
 
 type ItemSpec {
     id: String!
-    attributes: [AttributeSpec!]
+    attributes: [AttributeSpec]
 }
 
 type BooleanAttribute {
@@ -585,41 +576,6 @@ func (ec *executionContext) _AttributeSpec_id(ctx context.Context, field graphql
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.ID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _AttributeSpec_for(ctx context.Context, field graphql.CollectedField, obj *model.AttributeSpec) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "AttributeSpec",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.For, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1114,7 +1070,7 @@ func (ec *executionContext) _ItemSpec_attributes(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.AttributeSpec)
 	fc.Result = res
-	return ec.marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpecᚄ(ctx, field.Selections, res)
+	return ec.marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createBuild(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2679,11 +2635,6 @@ func (ec *executionContext) _AttributeSpec(ctx context.Context, sel ast.Selectio
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "for":
-			out.Values[i] = ec._AttributeSpec_for(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
 		case "type":
 			out.Values[i] = ec._AttributeSpec_type(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
@@ -3266,16 +3217,6 @@ func (ec *executionContext) marshalNAttribute2githubᚗcomᚋTheGrizzlyDevᚋbui
 	return ec._Attribute(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v *model.AttributeSpec) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._AttributeSpec(ctx, sel, v)
-}
-
 func (ec *executionContext) unmarshalNAttributeType2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeType(ctx context.Context, v interface{}) (model.AttributeType, error) {
 	var res model.AttributeType
 	err := res.UnmarshalGQL(v)
@@ -3634,7 +3575,7 @@ func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋTheGrizzlyDevᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpecᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.AttributeSpec) graphql.Marshaler {
+func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v []*model.AttributeSpec) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -3661,7 +3602,7 @@ func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzl
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
+			ret[i] = ec.marshalOAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3672,6 +3613,13 @@ func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzl
 	}
 	wg.Wait()
 	return ret
+}
+
+func (ec *executionContext) marshalOAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v *model.AttributeSpec) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AttributeSpec(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
