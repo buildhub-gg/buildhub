@@ -2,4 +2,8 @@ package graph
 
 //go:generate go run github.com/99designs/gqlgen
 
-type Resolver struct {}
+import "github.com/TheGrizzlyDev/buildhub/items"
+
+type Resolver struct {
+	SpecRepo items.ItemSpecRepository
+}
