@@ -10,4 +10,4 @@ type Resolver struct {
 
 func NewResolver(repo *items.EmbedItemSpecRepository) (*Resolver) {
 	return &Resolver{SpecRepo: repo}
-} 
+}
