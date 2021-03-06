@@ -55,7 +55,7 @@ func parseYamlToItemSpecs(content []byte) (result []*ItemSpec, err error) {
 	return result, nil
 }
 
-func NewRepoItemSpecs() (ItemSpecRepository, error) {
+func NewRepoItemSpecs() (*EmbedItemSpecRepository, error) {
 	specsByGame := map[string][]*ItemSpec{} 
 	if supermarioSpecs, err := parseYamlToItemSpecs(supermario); err == nil {
 		specsByGame["supermario"] = supermarioSpecs

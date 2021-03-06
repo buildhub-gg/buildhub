@@ -19,12 +19,13 @@ func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) ItemsFor(ctx context.Context, target string) (result []*model.ItemSpec, err error) {
+func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
+	result := []*model.ItemSpec{}
 	for _, item := range r.SpecRepo.FindFor(target) {
 		attributes := []*model.AttributeSpec{}
 		for _, attribute := range item.Attributes {
 			attributes = append(attributes, &model.AttributeSpec{
-				ID: attribute.ID,
+				ID:   attribute.ID,
 				Type: model.AttributeType(attribute.Type),
 			})
 		}

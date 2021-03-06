@@ -7,9 +7,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/TheGrizzlyDev/buildhub/graph"
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
-	"github.com/TheGrizzlyDev/buildhub/items"
 )
 
 const defaultPort = "8080"
@@ -20,14 +18,12 @@ func main() {
 		port = defaultPort
 	}
 
-	itemSpecsRepo, err := items.NewRepoItemSpecs()
+	graphResolver, err := InitResolver()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{
-		SpecRepo: itemSpecsRepo,
-	}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: graphResolver}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
