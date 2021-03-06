@@ -10,6 +10,10 @@ import (
 	"github.com/TheGrizzlyDev/buildhub/items"
 )
 
+import (
+	_ "github.com/joho/godotenv/autoload"
+)
+
 // Injectors from wire.go:
 
 func InitResolver() (*graph.Resolver, error) {

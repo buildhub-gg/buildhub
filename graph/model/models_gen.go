@@ -57,7 +57,7 @@ type InputItem struct {
 
 type IntAttribute struct {
 	ID    string `json:"id"`
-	Value bool   `json:"value"`
+	Value int    `json:"value"`
 }
 
 func (IntAttribute) IsAttribute() {}

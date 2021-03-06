@@ -385,7 +385,7 @@ type FloatAttribute {
 
 type IntAttribute {
     id: String!
-    value: Boolean!
+    value: Int!
 }
 
 union Attribute = BooleanAttribute | StringAttribute | FloatAttribute | IntAttribute 
@@ -934,9 +934,9 @@ func (ec *executionContext) _IntAttribute_value(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(bool)
+	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Item_id(ctx context.Context, field graphql.CollectedField, obj *model.Item) (ret graphql.Marshaler) {
@@ -3269,6 +3269,21 @@ func (ec *executionContext) unmarshalNInputBuild2githubᚗcomᚋTheGrizzlyDevᚋ
 func (ec *executionContext) unmarshalNInputItem2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐInputItem(ctx context.Context, v interface{}) (*model.InputItem, error) {
 	res, err := ec.unmarshalInputInputItem(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
+	res, err := graphql.UnmarshalInt(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
+	res := graphql.MarshalInt(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
 }
 
 func (ec *executionContext) marshalNItem2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐItem(ctx context.Context, sel ast.SelectionSet, v *model.Item) graphql.Marshaler {

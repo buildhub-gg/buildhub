@@ -19,9 +19,8 @@ const (
 
 type AttributeSpec struct {
 	ID string `yaml:"id"`
-	Name string `yaml:"name"`
 	Type AttributeType `yaml:"type"`
-	Definitions interface{} `yaml:"definitions,omitempty"`
+	Definitions interface{} `yaml:"definitions,omitempty"` //They currently exist but are unused
 }
 
 type ItemSpec struct {
