@@ -20,7 +20,21 @@ func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model
 }
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
-	panic(fmt.Errorf("not implemented"))
+	result := []*model.ItemSpec{}
+	for _, item := range r.SpecRepo.FindFor(target) {
+		attributes := []*model.AttributeSpec{}
+		for _, attribute := range item.Attributes {
+			attributes = append(attributes, &model.AttributeSpec{
+				ID:   attribute.ID,
+				Type: model.AttributeType(attribute.Type),
+			})
+		}
+		result = append(result, &model.ItemSpec{
+			ID:         item.ID,
+			Attributes: attributes,
+		})
+	}
+	return result, nil
 }
 
 func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, error) {

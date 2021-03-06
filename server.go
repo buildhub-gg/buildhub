@@ -7,19 +7,19 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/TheGrizzlyDev/buildhub/graph"
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
+    _ "github.com/joho/godotenv/autoload"
 )
-
-const defaultPort = "8080"
 
 func main() {
 	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
+
+	graphResolver, err := InitResolver()
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: graphResolver}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

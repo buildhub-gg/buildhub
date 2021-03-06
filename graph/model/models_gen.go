@@ -14,7 +14,6 @@ type Attribute interface {
 
 type AttributeSpec struct {
 	ID   string        `json:"id"`
-	For  string        `json:"for"`
 	Type AttributeType `json:"type"`
 }
 
@@ -58,7 +57,7 @@ type InputItem struct {
 
 type IntAttribute struct {
 	ID    string `json:"id"`
-	Value bool   `json:"value"`
+	Value int    `json:"value"`
 }
 
 func (IntAttribute) IsAttribute() {}

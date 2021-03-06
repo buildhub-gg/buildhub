@@ -1,0 +1,10 @@
+id: red-mushroom
+---
+id: green-mushroom
+attributes:
+  - id: num-of-lives
+    name: Number of lives gained
+    type: INT
+    definitions:
+      min: 0
+      max: 5

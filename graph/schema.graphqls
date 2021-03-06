@@ -7,13 +7,12 @@ enum AttributeType {
 
 type AttributeSpec {
     id: String!
-    for: String!
     type: AttributeType!
 }
 
 type ItemSpec {
     id: String!
-    attributes: [AttributeSpec!]
+    attributes: [AttributeSpec]
 }
 
 type BooleanAttribute {
@@ -33,7 +32,7 @@ type FloatAttribute {
 
 type IntAttribute {
     id: String!
-    value: Boolean!
+    value: Int!
 }
 
 union Attribute = BooleanAttribute | StringAttribute | FloatAttribute | IntAttribute 
