@@ -6,6 +6,7 @@
 package main
 
 import (
+	"github.com/TheGrizzlyDev/buildhub/build"
 	"github.com/TheGrizzlyDev/buildhub/graph"
 	"github.com/TheGrizzlyDev/buildhub/items"
 )
@@ -21,6 +22,7 @@ func InitResolver() (*graph.Resolver, error) {
 	if err != nil {
 		return nil, err
 	}
-	resolver := graph.NewResolver(embedItemSpecRepository)
+	inMemoryBuildRepository := build.NewInMemoryBuildRepository()
+	resolver := graph.NewResolver(embedItemSpecRepository, inMemoryBuildRepository)
 	return resolver, nil
 }

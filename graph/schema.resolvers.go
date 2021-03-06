@@ -5,18 +5,36 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
+	buildPackage "github.com/TheGrizzlyDev/buildhub/build"
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
 	"github.com/TheGrizzlyDev/buildhub/graph/model"
 )
 
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	id, err := r.BuildRepo.Create(&buildPackage.Build{
+		Name: build.Name,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &model.Build{
+		ID:   id,
+		Name: build.Name,
+	}, nil
 }
 
 func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model.InputBuild) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	err := r.BuildRepo.Edit(id, &buildPackage.Build{
+		Name: build.Name,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &model.Build{
+		ID:   id,
+		Name: build.Name,
+	}, nil
 }
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
@@ -38,7 +56,16 @@ func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.I
 }
 
 func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	build, err := r.BuildRepo.FindById(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Build{
+		ID:   id,
+		Name: build.Name,
+	}, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
