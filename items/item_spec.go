@@ -8,14 +8,29 @@ import (
 	_ "embed"
 )
 
+type AttributeType string
 
+const (
+	STRING AttributeType = "STRING"
+	INT AttributeType = "INT"
+	FLOAT AttributeType = "FLOAT"
+	BOOL AttributeType = "BOOL"
+)
+
+type AttributeSpec struct {
+	ID string `yaml:"id"`
+	Name string `yaml:"name"`
+	Type AttributeType `yaml:"type"`
+	Definitions interface{} `yaml:"definitions,omitempty"`
+}
 
 type ItemSpec struct {
 	ID string `yaml:"id"`
+	Attributes []AttributeSpec `yarm:"attributes,omitempty"`
 }
 
 var (
-	//go:embed super-mario.yml
+	//go:embed data/super-mario.yml
 	supermario []byte
 )
 

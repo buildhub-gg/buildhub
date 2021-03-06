@@ -21,9 +21,16 @@ func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) (result []*model.ItemSpec, err error) {
 	for _, item := range r.SpecRepo.FindFor(target) {
+		attributes := []*model.AttributeSpec{}
+		for _, attribute := range item.Attributes {
+			attributes = append(attributes, &model.AttributeSpec{
+				ID: attribute.ID,
+				Type: model.AttributeType(attribute.Type),
+			})
+		}
 		result = append(result, &model.ItemSpec{
 			ID:         item.ID,
-			Attributes: []*model.AttributeSpec{},
+			Attributes: attributes,
 		})
 	}
 	return result, nil
