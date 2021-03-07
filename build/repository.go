@@ -2,10 +2,6 @@ package build
 
 import "github.com/google/uuid"
 
-type Build struct {
-	Name string
-}
-
 type BuildRepository interface {
 	Create(build *Build) (string, error)
 	Edit(ID string, build *Build) error

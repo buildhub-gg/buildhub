@@ -14,6 +14,7 @@ import (
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
 	id, err := r.BuildRepo.Create(&buildPackage.Build{
 		Name: build.Name,
+		Items: extractItemsFromInputBuild(build),
 	})
 	if err != nil {
 		return nil, err
@@ -27,6 +28,7 @@ func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBui
 func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model.InputBuild) (*model.Build, error) {
 	err := r.BuildRepo.Edit(id, &buildPackage.Build{
 		Name: build.Name,
+		Items: extractItemsFromInputBuild(build),
 	})
 	if err != nil {
 		return nil, err
@@ -66,6 +68,16 @@ func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, err
 		ID:   id,
 		Name: build.Name,
 	}, nil
+}
+
+func extractItemsFromInputBuild(build model.InputBuild) []*buildPackage.Item {
+	buildItems := []*buildPackage.Item {}
+	for _, item := range build.Items {
+		buildItems = append(buildItems, &buildPackage.Item{
+			ID: item.ID,
+		})
+	}
+	return buildItems
 }
 
 // Mutation returns generated.MutationResolver implementation.
