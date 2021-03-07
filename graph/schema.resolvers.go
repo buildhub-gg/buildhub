@@ -5,18 +5,25 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
 	"github.com/TheGrizzlyDev/buildhub/graph/model"
 )
 
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	id, err := r.BuildRepo.Create(convertInputBuildToEntityBuild(&build))
+	if err != nil {
+		return nil, err
+	}
+	return convertInputBuildToOutputBuild(id, &build), nil
 }
 
 func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model.InputBuild) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	err := r.BuildRepo.Edit(id, convertInputBuildToEntityBuild(&build))
+	if err != nil {
+		return nil, err
+	}
+	return convertInputBuildToOutputBuild(id, &build), nil
 }
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
@@ -38,7 +45,13 @@ func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.I
 }
 
 func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, error) {
-	panic(fmt.Errorf("not implemented"))
+	build, err := r.BuildRepo.FindById(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return convertEntityBuildToOutputBuild(id, build), nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

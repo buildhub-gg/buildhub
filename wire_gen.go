@@ -6,8 +6,9 @@
 package main
 
 import (
+	"github.com/TheGrizzlyDev/buildhub/build"
 	"github.com/TheGrizzlyDev/buildhub/graph"
-	"github.com/TheGrizzlyDev/buildhub/items"
+	"github.com/TheGrizzlyDev/buildhub/item"
 )
 
 import (
@@ -17,10 +18,11 @@ import (
 // Injectors from wire.go:
 
 func InitResolver() (*graph.Resolver, error) {
-	embedItemSpecRepository, err := items.NewRepoItemSpecs()
+	embedItemSpecRepository, err := item.NewRepoItemSpecs()
 	if err != nil {
 		return nil, err
 	}
-	resolver := graph.NewResolver(embedItemSpecRepository)
+	inMemoryBuildRepository := build.NewInMemoryBuildRepository()
+	resolver := graph.NewResolver(embedItemSpecRepository, inMemoryBuildRepository)
 	return resolver, nil
 }
