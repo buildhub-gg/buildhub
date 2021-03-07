@@ -6,37 +6,24 @@ package graph
 import (
 	"context"
 
-	buildPackage "github.com/TheGrizzlyDev/buildhub/build"
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
 	"github.com/TheGrizzlyDev/buildhub/graph/model"
 )
 
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {
-	id, err := r.BuildRepo.Create(&buildPackage.Build{
-		Name: build.Name,
-		Items: extractItemsFromInputBuild(build),
-	})
+	id, err := r.BuildRepo.Create(convertInputBuildToEntityBuild(&build))
 	if err != nil {
 		return nil, err
 	}
-	return &model.Build{
-		ID:   id,
-		Name: build.Name,
-	}, nil
+	return convertInputBuildToOutputBuild(id, &build), nil
 }
 
 func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model.InputBuild) (*model.Build, error) {
-	err := r.BuildRepo.Edit(id, &buildPackage.Build{
-		Name: build.Name,
-		Items: extractItemsFromInputBuild(build),
-	})
+	err := r.BuildRepo.Edit(id, convertInputBuildToEntityBuild(&build))
 	if err != nil {
 		return nil, err
 	}
-	return &model.Build{
-		ID:   id,
-		Name: build.Name,
-	}, nil
+	return convertInputBuildToOutputBuild(id, &build), nil
 }
 
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
@@ -64,20 +51,7 @@ func (r *queryResolver) Build(ctx context.Context, id string) (*model.Build, err
 		return nil, err
 	}
 
-	return &model.Build{
-		ID:   id,
-		Name: build.Name,
-	}, nil
-}
-
-func extractItemsFromInputBuild(build model.InputBuild) []*buildPackage.Item {
-	buildItems := []*buildPackage.Item {}
-	for _, item := range build.Items {
-		buildItems = append(buildItems, &buildPackage.Item{
-			ID: item.ID,
-		})
-	}
-	return buildItems
+	return convertEntityBuildToOutputBuild(id, build), nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
