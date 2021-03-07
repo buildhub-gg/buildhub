@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"gopkg.in/yaml.v2"
-	_ "embed"
+	_ "embed" // Allows go 1.16 embed to work
 )
 
 type AttributeType string

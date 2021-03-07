@@ -1,8 +1,5 @@
 tasks:
-  - init: "
-  go get -v -t -d ./...
-  go get github.com/google/wire/cmd/wire
-  "
+  - init: ./scripts/init.sh
 
 vscode:
   extensions:
