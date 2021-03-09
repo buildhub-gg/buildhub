@@ -17,5 +17,6 @@ type AttributeSpec struct {
 
 type ItemSpec struct {
 	ID string `yaml:"id"`
+	Tags []*string `yaml:"tags,omitempty"`
 	Attributes []AttributeSpec `yarm:"attributes,omitempty"`
 }

@@ -92,6 +92,7 @@ type ComplexityRoot struct {
 	ItemSpec struct {
 		Attributes func(childComplexity int) int
 		ID         func(childComplexity int) int
+		Tags       func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -300,6 +301,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.ItemSpec.ID(childComplexity), true
 
+	case "ItemSpec.tags":
+		if e.complexity.ItemSpec.Tags == nil {
+			break
+		}
+
+		return e.complexity.ItemSpec.Tags(childComplexity), true
+
 	case "Mutation.createBuild":
 		if e.complexity.Mutation.CreateBuild == nil {
 			break
@@ -477,6 +485,7 @@ type StringAttributeSpec implements AttributeSpec {
 
 type ItemSpec {
     id: String!
+    tags: [String]
     attributes: [AttributeSpec]
 }
 
@@ -1410,6 +1419,38 @@ func (ec *executionContext) _ItemSpec_id(ctx context.Context, field graphql.Coll
 	res := resTmp.(string)
 	fc.Result = res
 	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _ItemSpec_tags(ctx context.Context, field graphql.CollectedField, obj *model.ItemSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ItemSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ItemSpec_attributes(ctx context.Context, field graphql.CollectedField, obj *model.ItemSpec) (ret graphql.Marshaler) {
@@ -3364,6 +3405,8 @@ func (ec *executionContext) _ItemSpec(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "tags":
+			out.Values[i] = ec._ItemSpec_tags(ctx, field, obj)
 		case "attributes":
 			out.Values[i] = ec._ItemSpec_attributes(ctx, field, obj)
 		default:
@@ -4383,6 +4426,42 @@ func (ec *executionContext) unmarshalOString2string(ctx context.Context, v inter
 
 func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
 	return graphql.MarshalString(v)
+}
+
+func (ec *executionContext) unmarshalOString2ᚕᚖstring(ctx context.Context, v interface{}) ([]*string, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]*string, len(vSlice))
+	for i := range vSlice {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
+		res[i], err = ec.unmarshalOString2ᚖstring(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOString2ᚕᚖstring(ctx context.Context, sel ast.SelectionSet, v []*string) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalOString2ᚖstring(ctx, sel, v[i])
+	}
+
+	return ret
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {

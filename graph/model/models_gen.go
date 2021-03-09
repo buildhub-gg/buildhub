@@ -93,6 +93,7 @@ type Item struct {
 
 type ItemSpec struct {
 	ID         string          `json:"id"`
+	Tags       []*string       `json:"tags"`
 	Attributes []AttributeSpec `json:"attributes"`
 }
 

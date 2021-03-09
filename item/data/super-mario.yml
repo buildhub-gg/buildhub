@@ -1,5 +1,10 @@
 id: red-mushroom
 ---
+id: flower
+tags: 
+  - "depends-on:red-mushoroom"
+  - "consumable"
+---
 id: green-mushroom
 attributes:
   - id: can-spawn-on-1-1

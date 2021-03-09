@@ -67,6 +67,7 @@ func convertItemSpecToGraphql(in *item.ItemSpec) (*model.ItemSpec, error) {
 	
 	return &model.ItemSpec{
 		ID: in.ID,
+		Tags: in.Tags,
 		Attributes: attributes,
 	}, nil
 }
