@@ -2,9 +2,27 @@ id: red-mushroom
 ---
 id: green-mushroom
 attributes:
+  - id: can-spawn-on-1-1
+    name: Can spawn on 1-1
+    type: BOOL
+    definitions:
+      default: false
   - id: num-of-lives
     name: Number of lives gained
     type: INT
     definitions:
       min: 0
       max: 5
+      default: 1
+  - id: speed
+    name: Speed
+    type: FLOAT
+    definitions:
+      min: .2
+      max: .5
+      default: .4
+  - id: motto
+    name: Motto
+    type: STRING
+    definitions:
+      default: Mamma mia!
