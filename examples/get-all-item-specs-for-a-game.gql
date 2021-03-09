@@ -1,0 +1,26 @@
+# Write your query or mutation here
+query {
+  itemsFor(target:"supermario") {
+    id,
+    attributes {
+      id,
+      __typename,
+      ... on BooleanAttributeSpec {
+        boolDefault: default
+      },
+      ... on StringAttributeSpec {
+        stringDefault: default
+      },
+      ... on FloatAttributeSpec {
+        floatMin: min,
+        floatMax: max, 
+        floatDefault: default
+      },
+      ... on IntAttributeSpec {
+        intMin: min,
+        intMax: max, 
+        intDefault: default
+      }
+    }
+  }
+}
