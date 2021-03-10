@@ -10,7 +10,9 @@ import (
 
 var (
 	//go:embed data/super-mario.yml
-	supermario []byte
+	supermario []byte;
+	//go:embed data/shopping.yml
+	shopping []byte;
 )
 
 type ItemSpecRepository interface {
@@ -38,6 +40,9 @@ func NewRepoItemSpecs() (*EmbedItemSpecRepository, error) {
 	specsByGame := map[string][]*ItemSpec{} 
 	if supermarioSpecs, err := parseYamlToItemSpecs(supermario); err == nil {
 		specsByGame["supermario"] = supermarioSpecs
+	}
+	if shoppingSpecs, err := parseYamlToItemSpecs(shopping); err == nil {
+		specsByGame["shopping"] = shoppingSpecs
 	}
 	return &EmbedItemSpecRepository {
 		specsByGame: specsByGame,
