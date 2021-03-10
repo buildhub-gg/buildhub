@@ -8,7 +8,9 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/TheGrizzlyDev/buildhub/graph/generated"
-    _ "github.com/joho/godotenv/autoload"
+	"github.com/go-chi/chi"
+	_ "github.com/joho/godotenv/autoload"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -19,11 +21,22 @@ func main() {
 		log.Fatal(err)
 	}
 
+	router := chi.NewRouter()
+
+	// Add CORS middleware around every request
+	// Source edited from: https://gqlgen.com/recipes/cors/
+	router.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowCredentials: true,
+		Debug:            true,
+	}).Handler)
+
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: graphResolver}))
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/query", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	// Adder router to ListenAndServe src: https://github.com/99designs/gqlgen/issues/1326#issuecomment-693454584
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
