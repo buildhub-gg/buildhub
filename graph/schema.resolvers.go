@@ -29,17 +29,13 @@ func (r *mutationResolver) EditBuild(ctx context.Context, id string, build model
 func (r *queryResolver) ItemsFor(ctx context.Context, target string) ([]*model.ItemSpec, error) {
 	result := []*model.ItemSpec{}
 	for _, item := range r.SpecRepo.FindFor(target) {
-		attributes := []*model.AttributeSpec{}
-		for _, attribute := range item.Attributes {
-			attributes = append(attributes, &model.AttributeSpec{
-				ID:   attribute.ID,
-				Type: model.AttributeType(attribute.Type),
-			})
+		convertedItem, err := convertItemSpecToGraphql(item)
+
+		if err != nil {
+			return nil, err
 		}
-		result = append(result, &model.ItemSpec{
-			ID:         item.ID,
-			Attributes: attributes,
-		})
+
+		result = append(result, convertedItem)
 	}
 	return result, nil
 }

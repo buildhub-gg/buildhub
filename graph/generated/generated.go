@@ -44,14 +44,14 @@ type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
-	AttributeSpec struct {
-		ID   func(childComplexity int) int
-		Type func(childComplexity int) int
-	}
-
 	BooleanAttribute struct {
 		ID    func(childComplexity int) int
 		Value func(childComplexity int) int
+	}
+
+	BooleanAttributeSpec struct {
+		Default func(childComplexity int) int
+		ID      func(childComplexity int) int
 	}
 
 	Build struct {
@@ -65,9 +65,23 @@ type ComplexityRoot struct {
 		Value func(childComplexity int) int
 	}
 
+	FloatAttributeSpec struct {
+		Default func(childComplexity int) int
+		ID      func(childComplexity int) int
+		Max     func(childComplexity int) int
+		Min     func(childComplexity int) int
+	}
+
 	IntAttribute struct {
 		ID    func(childComplexity int) int
 		Value func(childComplexity int) int
+	}
+
+	IntAttributeSpec struct {
+		Default func(childComplexity int) int
+		ID      func(childComplexity int) int
+		Max     func(childComplexity int) int
+		Min     func(childComplexity int) int
 	}
 
 	Item struct {
@@ -78,6 +92,7 @@ type ComplexityRoot struct {
 	ItemSpec struct {
 		Attributes func(childComplexity int) int
 		ID         func(childComplexity int) int
+		Tags       func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -93,6 +108,11 @@ type ComplexityRoot struct {
 	StringAttribute struct {
 		ID    func(childComplexity int) int
 		Value func(childComplexity int) int
+	}
+
+	StringAttributeSpec struct {
+		Default func(childComplexity int) int
+		ID      func(childComplexity int) int
 	}
 }
 
@@ -120,20 +140,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	_ = ec
 	switch typeName + "." + field {
 
-	case "AttributeSpec.id":
-		if e.complexity.AttributeSpec.ID == nil {
-			break
-		}
-
-		return e.complexity.AttributeSpec.ID(childComplexity), true
-
-	case "AttributeSpec.type":
-		if e.complexity.AttributeSpec.Type == nil {
-			break
-		}
-
-		return e.complexity.AttributeSpec.Type(childComplexity), true
-
 	case "BooleanAttribute.id":
 		if e.complexity.BooleanAttribute.ID == nil {
 			break
@@ -147,6 +153,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.BooleanAttribute.Value(childComplexity), true
+
+	case "BooleanAttributeSpec.default":
+		if e.complexity.BooleanAttributeSpec.Default == nil {
+			break
+		}
+
+		return e.complexity.BooleanAttributeSpec.Default(childComplexity), true
+
+	case "BooleanAttributeSpec.id":
+		if e.complexity.BooleanAttributeSpec.ID == nil {
+			break
+		}
+
+		return e.complexity.BooleanAttributeSpec.ID(childComplexity), true
 
 	case "Build.id":
 		if e.complexity.Build.ID == nil {
@@ -183,6 +203,34 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.FloatAttribute.Value(childComplexity), true
 
+	case "FloatAttributeSpec.default":
+		if e.complexity.FloatAttributeSpec.Default == nil {
+			break
+		}
+
+		return e.complexity.FloatAttributeSpec.Default(childComplexity), true
+
+	case "FloatAttributeSpec.id":
+		if e.complexity.FloatAttributeSpec.ID == nil {
+			break
+		}
+
+		return e.complexity.FloatAttributeSpec.ID(childComplexity), true
+
+	case "FloatAttributeSpec.max":
+		if e.complexity.FloatAttributeSpec.Max == nil {
+			break
+		}
+
+		return e.complexity.FloatAttributeSpec.Max(childComplexity), true
+
+	case "FloatAttributeSpec.min":
+		if e.complexity.FloatAttributeSpec.Min == nil {
+			break
+		}
+
+		return e.complexity.FloatAttributeSpec.Min(childComplexity), true
+
 	case "IntAttribute.id":
 		if e.complexity.IntAttribute.ID == nil {
 			break
@@ -196,6 +244,34 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.IntAttribute.Value(childComplexity), true
+
+	case "IntAttributeSpec.default":
+		if e.complexity.IntAttributeSpec.Default == nil {
+			break
+		}
+
+		return e.complexity.IntAttributeSpec.Default(childComplexity), true
+
+	case "IntAttributeSpec.id":
+		if e.complexity.IntAttributeSpec.ID == nil {
+			break
+		}
+
+		return e.complexity.IntAttributeSpec.ID(childComplexity), true
+
+	case "IntAttributeSpec.max":
+		if e.complexity.IntAttributeSpec.Max == nil {
+			break
+		}
+
+		return e.complexity.IntAttributeSpec.Max(childComplexity), true
+
+	case "IntAttributeSpec.min":
+		if e.complexity.IntAttributeSpec.Min == nil {
+			break
+		}
+
+		return e.complexity.IntAttributeSpec.Min(childComplexity), true
 
 	case "Item.attributes":
 		if e.complexity.Item.Attributes == nil {
@@ -224,6 +300,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.ItemSpec.ID(childComplexity), true
+
+	case "ItemSpec.tags":
+		if e.complexity.ItemSpec.Tags == nil {
+			break
+		}
+
+		return e.complexity.ItemSpec.Tags(childComplexity), true
 
 	case "Mutation.createBuild":
 		if e.complexity.Mutation.CreateBuild == nil {
@@ -286,6 +369,20 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.StringAttribute.Value(childComplexity), true
+
+	case "StringAttributeSpec.default":
+		if e.complexity.StringAttributeSpec.Default == nil {
+			break
+		}
+
+		return e.complexity.StringAttributeSpec.Default(childComplexity), true
+
+	case "StringAttributeSpec.id":
+		if e.complexity.StringAttributeSpec.ID == nil {
+			break
+		}
+
+		return e.complexity.StringAttributeSpec.ID(childComplexity), true
 
 	}
 	return 0, false
@@ -358,13 +455,37 @@ var sources = []*ast.Source{
     FLOAT
 }
 
-type AttributeSpec {
+interface AttributeSpec {
     id: String!
-    type: AttributeType!
+}
+
+type BooleanAttributeSpec implements AttributeSpec {
+    id: String!
+    default: Boolean
+}
+
+type IntAttributeSpec implements AttributeSpec {
+    id: String!
+    min: Int
+    max: Int
+    default: Int
+}
+
+type FloatAttributeSpec implements AttributeSpec {
+    id: String!
+    min: Float
+    max: Float
+    default: Float
+}
+
+type StringAttributeSpec implements AttributeSpec {
+    id: String!
+    default: String
 }
 
 type ItemSpec {
     id: String!
+    tags: [String]
     attributes: [AttributeSpec]
 }
 
@@ -557,76 +678,6 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _AttributeSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.AttributeSpec) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "AttributeSpec",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(string)
-	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) _AttributeSpec_type(ctx context.Context, field graphql.CollectedField, obj *model.AttributeSpec) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "AttributeSpec",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Type, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.(model.AttributeType)
-	fc.Result = res
-	return ec.marshalNAttributeType2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeType(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _BooleanAttribute_id(ctx context.Context, field graphql.CollectedField, obj *model.BooleanAttribute) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -695,6 +746,73 @@ func (ec *executionContext) _BooleanAttribute_value(ctx context.Context, field g
 	res := resTmp.(bool)
 	fc.Result = res
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _BooleanAttributeSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.BooleanAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "BooleanAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _BooleanAttributeSpec_default(ctx context.Context, field graphql.CollectedField, obj *model.BooleanAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "BooleanAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Default, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Build_id(ctx context.Context, field graphql.CollectedField, obj *model.Build) (ret graphql.Marshaler) {
@@ -869,6 +987,137 @@ func (ec *executionContext) _FloatAttribute_value(ctx context.Context, field gra
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _FloatAttributeSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.FloatAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "FloatAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FloatAttributeSpec_min(ctx context.Context, field graphql.CollectedField, obj *model.FloatAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "FloatAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Min, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FloatAttributeSpec_max(ctx context.Context, field graphql.CollectedField, obj *model.FloatAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "FloatAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Max, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _FloatAttributeSpec_default(ctx context.Context, field graphql.CollectedField, obj *model.FloatAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "FloatAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Default, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*float64)
+	fc.Result = res
+	return ec.marshalOFloat2ᚖfloat64(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _IntAttribute_id(ctx context.Context, field graphql.CollectedField, obj *model.IntAttribute) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -937,6 +1186,137 @@ func (ec *executionContext) _IntAttribute_value(ctx context.Context, field graph
 	res := resTmp.(int)
 	fc.Result = res
 	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _IntAttributeSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.IntAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "IntAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _IntAttributeSpec_min(ctx context.Context, field graphql.CollectedField, obj *model.IntAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "IntAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Min, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _IntAttributeSpec_max(ctx context.Context, field graphql.CollectedField, obj *model.IntAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "IntAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Max, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _IntAttributeSpec_default(ctx context.Context, field graphql.CollectedField, obj *model.IntAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "IntAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Default, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*int)
+	fc.Result = res
+	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Item_id(ctx context.Context, field graphql.CollectedField, obj *model.Item) (ret graphql.Marshaler) {
@@ -1041,6 +1421,38 @@ func (ec *executionContext) _ItemSpec_id(ctx context.Context, field graphql.Coll
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _ItemSpec_tags(ctx context.Context, field graphql.CollectedField, obj *model.ItemSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "ItemSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Tags, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*string)
+	fc.Result = res
+	return ec.marshalOString2ᚕᚖstring(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _ItemSpec_attributes(ctx context.Context, field graphql.CollectedField, obj *model.ItemSpec) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -1068,9 +1480,9 @@ func (ec *executionContext) _ItemSpec_attributes(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.AttributeSpec)
+	res := resTmp.([]model.AttributeSpec)
 	fc.Result = res
-	return ec.marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, field.Selections, res)
+	return ec.marshalOAttributeSpec2ᚕgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createBuild(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1377,6 +1789,73 @@ func (ec *executionContext) _StringAttribute_value(ctx context.Context, field gr
 	res := resTmp.(bool)
 	fc.Result = res
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _StringAttributeSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.StringAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "StringAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _StringAttributeSpec_default(ctx context.Context, field graphql.CollectedField, obj *model.StringAttributeSpec) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "StringAttributeSpec",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Default, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_name(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -2615,41 +3094,46 @@ func (ec *executionContext) _Attribute(ctx context.Context, sel ast.SelectionSet
 	}
 }
 
+func (ec *executionContext) _AttributeSpec(ctx context.Context, sel ast.SelectionSet, obj model.AttributeSpec) graphql.Marshaler {
+	switch obj := (obj).(type) {
+	case nil:
+		return graphql.Null
+	case model.BooleanAttributeSpec:
+		return ec._BooleanAttributeSpec(ctx, sel, &obj)
+	case *model.BooleanAttributeSpec:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._BooleanAttributeSpec(ctx, sel, obj)
+	case model.IntAttributeSpec:
+		return ec._IntAttributeSpec(ctx, sel, &obj)
+	case *model.IntAttributeSpec:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._IntAttributeSpec(ctx, sel, obj)
+	case model.FloatAttributeSpec:
+		return ec._FloatAttributeSpec(ctx, sel, &obj)
+	case *model.FloatAttributeSpec:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._FloatAttributeSpec(ctx, sel, obj)
+	case model.StringAttributeSpec:
+		return ec._StringAttributeSpec(ctx, sel, &obj)
+	case *model.StringAttributeSpec:
+		if obj == nil {
+			return graphql.Null
+		}
+		return ec._StringAttributeSpec(ctx, sel, obj)
+	default:
+		panic(fmt.Errorf("unexpected type %T", obj))
+	}
+}
+
 // endregion ************************** interface.gotpl ***************************
 
 // region    **************************** object.gotpl ****************************
-
-var attributeSpecImplementors = []string{"AttributeSpec"}
-
-func (ec *executionContext) _AttributeSpec(ctx context.Context, sel ast.SelectionSet, obj *model.AttributeSpec) graphql.Marshaler {
-	fields := graphql.CollectFields(ec.OperationContext, sel, attributeSpecImplementors)
-
-	out := graphql.NewFieldSet(fields)
-	var invalids uint32
-	for i, field := range fields {
-		switch field.Name {
-		case "__typename":
-			out.Values[i] = graphql.MarshalString("AttributeSpec")
-		case "id":
-			out.Values[i] = ec._AttributeSpec_id(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		case "type":
-			out.Values[i] = ec._AttributeSpec_type(ctx, field, obj)
-			if out.Values[i] == graphql.Null {
-				invalids++
-			}
-		default:
-			panic("unknown field " + strconv.Quote(field.Name))
-		}
-	}
-	out.Dispatch()
-	if invalids > 0 {
-		return graphql.Null
-	}
-	return out
-}
 
 var booleanAttributeImplementors = []string{"BooleanAttribute", "Attribute"}
 
@@ -2672,6 +3156,35 @@ func (ec *executionContext) _BooleanAttribute(ctx context.Context, sel ast.Selec
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var booleanAttributeSpecImplementors = []string{"BooleanAttributeSpec", "AttributeSpec"}
+
+func (ec *executionContext) _BooleanAttributeSpec(ctx context.Context, sel ast.SelectionSet, obj *model.BooleanAttributeSpec) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, booleanAttributeSpecImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("BooleanAttributeSpec")
+		case "id":
+			out.Values[i] = ec._BooleanAttributeSpec_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "default":
+			out.Values[i] = ec._BooleanAttributeSpec_default(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -2749,6 +3262,39 @@ func (ec *executionContext) _FloatAttribute(ctx context.Context, sel ast.Selecti
 	return out
 }
 
+var floatAttributeSpecImplementors = []string{"FloatAttributeSpec", "AttributeSpec"}
+
+func (ec *executionContext) _FloatAttributeSpec(ctx context.Context, sel ast.SelectionSet, obj *model.FloatAttributeSpec) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, floatAttributeSpecImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("FloatAttributeSpec")
+		case "id":
+			out.Values[i] = ec._FloatAttributeSpec_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "min":
+			out.Values[i] = ec._FloatAttributeSpec_min(ctx, field, obj)
+		case "max":
+			out.Values[i] = ec._FloatAttributeSpec_max(ctx, field, obj)
+		case "default":
+			out.Values[i] = ec._FloatAttributeSpec_default(ctx, field, obj)
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var intAttributeImplementors = []string{"IntAttribute", "Attribute"}
 
 func (ec *executionContext) _IntAttribute(ctx context.Context, sel ast.SelectionSet, obj *model.IntAttribute) graphql.Marshaler {
@@ -2770,6 +3316,39 @@ func (ec *executionContext) _IntAttribute(ctx context.Context, sel ast.Selection
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var intAttributeSpecImplementors = []string{"IntAttributeSpec", "AttributeSpec"}
+
+func (ec *executionContext) _IntAttributeSpec(ctx context.Context, sel ast.SelectionSet, obj *model.IntAttributeSpec) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, intAttributeSpecImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("IntAttributeSpec")
+		case "id":
+			out.Values[i] = ec._IntAttributeSpec_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "min":
+			out.Values[i] = ec._IntAttributeSpec_min(ctx, field, obj)
+		case "max":
+			out.Values[i] = ec._IntAttributeSpec_max(ctx, field, obj)
+		case "default":
+			out.Values[i] = ec._IntAttributeSpec_default(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -2826,6 +3405,8 @@ func (ec *executionContext) _ItemSpec(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "tags":
+			out.Values[i] = ec._ItemSpec_tags(ctx, field, obj)
 		case "attributes":
 			out.Values[i] = ec._ItemSpec_attributes(ctx, field, obj)
 		default:
@@ -2951,6 +3532,35 @@ func (ec *executionContext) _StringAttribute(ctx context.Context, sel ast.Select
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var stringAttributeSpecImplementors = []string{"StringAttributeSpec", "AttributeSpec"}
+
+func (ec *executionContext) _StringAttributeSpec(ctx context.Context, sel ast.SelectionSet, obj *model.StringAttributeSpec) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, stringAttributeSpecImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("StringAttributeSpec")
+		case "id":
+			out.Values[i] = ec._StringAttributeSpec_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "default":
+			out.Values[i] = ec._StringAttributeSpec_default(ctx, field, obj)
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -3215,16 +3825,6 @@ func (ec *executionContext) marshalNAttribute2githubᚗcomᚋTheGrizzlyDevᚋbui
 		return graphql.Null
 	}
 	return ec._Attribute(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalNAttributeType2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeType(ctx context.Context, v interface{}) (model.AttributeType, error) {
-	var res model.AttributeType
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNAttributeType2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeType(ctx context.Context, sel ast.SelectionSet, v model.AttributeType) graphql.Marshaler {
-	return v
 }
 
 func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
@@ -3590,7 +4190,14 @@ func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋTheGrizzlyDevᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v []*model.AttributeSpec) graphql.Marshaler {
+func (ec *executionContext) marshalOAttributeSpec2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v model.AttributeSpec) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._AttributeSpec(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOAttributeSpec2ᚕgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v []model.AttributeSpec) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -3617,7 +4224,7 @@ func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzl
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
+			ret[i] = ec.marshalOAttributeSpec2githubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3628,13 +4235,6 @@ func (ec *executionContext) marshalOAttributeSpec2ᚕᚖgithubᚗcomᚋTheGrizzl
 	}
 	wg.Wait()
 	return ret
-}
-
-func (ec *executionContext) marshalOAttributeSpec2ᚖgithubᚗcomᚋTheGrizzlyDevᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v *model.AttributeSpec) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._AttributeSpec(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
@@ -3826,6 +4426,42 @@ func (ec *executionContext) unmarshalOString2string(ctx context.Context, v inter
 
 func (ec *executionContext) marshalOString2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
 	return graphql.MarshalString(v)
+}
+
+func (ec *executionContext) unmarshalOString2ᚕᚖstring(ctx context.Context, v interface{}) ([]*string, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var vSlice []interface{}
+	if v != nil {
+		if tmp1, ok := v.([]interface{}); ok {
+			vSlice = tmp1
+		} else {
+			vSlice = []interface{}{v}
+		}
+	}
+	var err error
+	res := make([]*string, len(vSlice))
+	for i := range vSlice {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
+		res[i], err = ec.unmarshalOString2ᚖstring(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) marshalOString2ᚕᚖstring(ctx context.Context, sel ast.SelectionSet, v []*string) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	for i := range v {
+		ret[i] = ec.marshalOString2ᚖstring(ctx, sel, v[i])
+	}
+
+	return ret
 }
 
 func (ec *executionContext) unmarshalOString2ᚖstring(ctx context.Context, v interface{}) (*string, error) {

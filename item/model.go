@@ -12,10 +12,11 @@ const (
 type AttributeSpec struct {
 	ID string `yaml:"id"`
 	Type AttributeType `yaml:"type"`
-	Definitions interface{} `yaml:"definitions,omitempty"` //They currently exist but are unused
+	Definitions map[string]interface{} `yaml:"definitions,omitempty"` //They currently exist but are unused
 }
 
 type ItemSpec struct {
 	ID string `yaml:"id"`
+	Tags []*string `yaml:"tags,omitempty"`
 	Attributes []AttributeSpec `yarm:"attributes,omitempty"`
 }

@@ -12,9 +12,8 @@ type Attribute interface {
 	IsAttribute()
 }
 
-type AttributeSpec struct {
-	ID   string        `json:"id"`
-	Type AttributeType `json:"type"`
+type AttributeSpec interface {
+	IsAttributeSpec()
 }
 
 type BooleanAttribute struct {
@@ -23,6 +22,13 @@ type BooleanAttribute struct {
 }
 
 func (BooleanAttribute) IsAttribute() {}
+
+type BooleanAttributeSpec struct {
+	ID      string `json:"id"`
+	Default *bool  `json:"default"`
+}
+
+func (BooleanAttributeSpec) IsAttributeSpec() {}
 
 type Build struct {
 	ID    string  `json:"id"`
@@ -36,6 +42,15 @@ type FloatAttribute struct {
 }
 
 func (FloatAttribute) IsAttribute() {}
+
+type FloatAttributeSpec struct {
+	ID      string   `json:"id"`
+	Min     *float64 `json:"min"`
+	Max     *float64 `json:"max"`
+	Default *float64 `json:"default"`
+}
+
+func (FloatAttributeSpec) IsAttributeSpec() {}
 
 type InputAttribute struct {
 	ID          string   `json:"id"`
@@ -62,14 +77,24 @@ type IntAttribute struct {
 
 func (IntAttribute) IsAttribute() {}
 
+type IntAttributeSpec struct {
+	ID      string `json:"id"`
+	Min     *int   `json:"min"`
+	Max     *int   `json:"max"`
+	Default *int   `json:"default"`
+}
+
+func (IntAttributeSpec) IsAttributeSpec() {}
+
 type Item struct {
 	ID         string      `json:"id"`
 	Attributes []Attribute `json:"attributes"`
 }
 
 type ItemSpec struct {
-	ID         string           `json:"id"`
-	Attributes []*AttributeSpec `json:"attributes"`
+	ID         string          `json:"id"`
+	Tags       []*string       `json:"tags"`
+	Attributes []AttributeSpec `json:"attributes"`
 }
 
 type StringAttribute struct {
@@ -78,6 +103,13 @@ type StringAttribute struct {
 }
 
 func (StringAttribute) IsAttribute() {}
+
+type StringAttributeSpec struct {
+	ID      string  `json:"id"`
+	Default *string `json:"default"`
+}
+
+func (StringAttributeSpec) IsAttributeSpec() {}
 
 type AttributeType string
 

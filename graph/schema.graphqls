@@ -5,13 +5,37 @@ enum AttributeType {
     FLOAT
 }
 
-type AttributeSpec {
+interface AttributeSpec {
     id: String!
-    type: AttributeType!
+}
+
+type BooleanAttributeSpec implements AttributeSpec {
+    id: String!
+    default: Boolean
+}
+
+type IntAttributeSpec implements AttributeSpec {
+    id: String!
+    min: Int
+    max: Int
+    default: Int
+}
+
+type FloatAttributeSpec implements AttributeSpec {
+    id: String!
+    min: Float
+    max: Float
+    default: Float
+}
+
+type StringAttributeSpec implements AttributeSpec {
+    id: String!
+    default: String
 }
 
 type ItemSpec {
     id: String!
+    tags: [String]
     attributes: [AttributeSpec]
 }
 
