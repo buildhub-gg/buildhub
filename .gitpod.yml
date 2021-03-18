@@ -5,3 +5,4 @@ vscode:
   extensions:
     - premparihar.gotestexplorer@0.1.10:jvUM8akrQ67vQxfjaxCgCg==
     - graphql.vscode-graphql@0.3.8:jHk/gSNypa0bHc+cU2gp8w==
+    - bazelbuild.vscode-bazel@0.4.0:aAOiwHZhaeuKrTfQxJWFjA==
