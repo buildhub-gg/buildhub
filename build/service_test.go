@@ -4,7 +4,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/TheGrizzlyDev/buildhub/build"
+	"github.com/buildhub-gg/buildhub/build"
 )
 
 var _ = Describe("Service", func() {

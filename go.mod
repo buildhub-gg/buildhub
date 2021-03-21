@@ -1,4 +1,4 @@
-module github.com/TheGrizzlyDev/buildhub
+module github.com/buildhub-gg/buildhub
 
 go 1.16
 

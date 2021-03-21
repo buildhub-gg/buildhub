@@ -6,9 +6,9 @@
 package main
 
 import (
-	"github.com/TheGrizzlyDev/buildhub/build"
-	"github.com/TheGrizzlyDev/buildhub/graph"
-	"github.com/TheGrizzlyDev/buildhub/item"
+	"github.com/buildhub-gg/buildhub/build"
+	"github.com/buildhub-gg/buildhub/graph"
+	"github.com/buildhub-gg/buildhub/item"
 )
 
 import (
