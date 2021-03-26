@@ -6,8 +6,8 @@ package graph
 import (
 	"context"
 
-	"github.com/buildhub-gg/buildhub/graph/generated"
-	"github.com/buildhub-gg/buildhub/graph/model"
+	"github.com/buildhub-gg/buildhub/core-be/graph/generated"
+	"github.com/buildhub-gg/buildhub/core-be/graph/model"
 )
 
 func (r *mutationResolver) CreateBuild(ctx context.Context, build model.InputBuild) (*model.Build, error) {

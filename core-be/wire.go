@@ -3,9 +3,9 @@
 package main
 
 import (
-	"github.com/buildhub-gg/buildhub/build"
-	"github.com/buildhub-gg/buildhub/item"
-	"github.com/buildhub-gg/buildhub/graph"
+	"github.com/buildhub-gg/buildhub/core-be/build"
+	"github.com/buildhub-gg/buildhub/core-be/item"
+	"github.com/buildhub-gg/buildhub/core-be/graph"
 	"github.com/google/wire"
 )
 

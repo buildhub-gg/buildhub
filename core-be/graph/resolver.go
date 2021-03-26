@@ -3,8 +3,8 @@ package graph
 //go:generate go run github.com/99designs/gqlgen
 
 import (
-	"github.com/buildhub-gg/buildhub/item"
-	"github.com/buildhub-gg/buildhub/build"
+	"github.com/buildhub-gg/buildhub/core-be/item"
+	"github.com/buildhub-gg/buildhub/core-be/build"
 )
 
 type Resolver struct {

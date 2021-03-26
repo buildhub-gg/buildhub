@@ -1,4 +1,4 @@
-module github.com/buildhub-gg/buildhub
+module github.com/buildhub-gg/buildhub/core-be
 
 go 1.16
 
