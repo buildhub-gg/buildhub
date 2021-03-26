@@ -13,7 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/buildhub-gg/buildhub/graph/model"
+	"github.com/buildhub-gg/buildhub/core-be/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -562,7 +562,7 @@ func (ec *executionContext) field_Mutation_createBuild_args(ctx context.Context,
 	var arg0 model.InputBuild
 	if tmp, ok := rawArgs["build"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("build"))
-		arg0, err = ec.unmarshalNInputBuild2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputBuild(ctx, tmp)
+		arg0, err = ec.unmarshalNInputBuild2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputBuild(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -586,7 +586,7 @@ func (ec *executionContext) field_Mutation_editBuild_args(ctx context.Context, r
 	var arg1 model.InputBuild
 	if tmp, ok := rawArgs["build"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("build"))
-		arg1, err = ec.unmarshalNInputBuild2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputBuild(ctx, tmp)
+		arg1, err = ec.unmarshalNInputBuild2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputBuild(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -914,7 +914,7 @@ func (ec *executionContext) _Build_items(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.Item)
 	fc.Result = res
-	return ec.marshalOItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemᚄ(ctx, field.Selections, res)
+	return ec.marshalOItem2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _FloatAttribute_id(ctx context.Context, field graphql.CollectedField, obj *model.FloatAttribute) (ret graphql.Marshaler) {
@@ -1383,7 +1383,7 @@ func (ec *executionContext) _Item_attributes(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]model.Attribute)
 	fc.Result = res
-	return ec.marshalOAttribute2ᚕgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeᚄ(ctx, field.Selections, res)
+	return ec.marshalOAttribute2ᚕgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _ItemSpec_id(ctx context.Context, field graphql.CollectedField, obj *model.ItemSpec) (ret graphql.Marshaler) {
@@ -1482,7 +1482,7 @@ func (ec *executionContext) _ItemSpec_attributes(ctx context.Context, field grap
 	}
 	res := resTmp.([]model.AttributeSpec)
 	fc.Result = res
-	return ec.marshalOAttributeSpec2ᚕgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, field.Selections, res)
+	return ec.marshalOAttributeSpec2ᚕgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeSpec(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createBuild(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1524,7 +1524,7 @@ func (ec *executionContext) _Mutation_createBuild(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Build)
 	fc.Result = res
-	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
+	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_editBuild(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1566,7 +1566,7 @@ func (ec *executionContext) _Mutation_editBuild(ctx context.Context, field graph
 	}
 	res := resTmp.(*model.Build)
 	fc.Result = res
-	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
+	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_itemsFor(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1605,7 +1605,7 @@ func (ec *executionContext) _Query_itemsFor(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*model.ItemSpec)
 	fc.Result = res
-	return ec.marshalOItemSpec2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemSpecᚄ(ctx, field.Selections, res)
+	return ec.marshalOItemSpec2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemSpecᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_build(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1647,7 +1647,7 @@ func (ec *executionContext) _Query_build(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*model.Build)
 	fc.Result = res
-	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
+	return ec.marshalNBuild2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐBuild(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -3015,7 +3015,7 @@ func (ec *executionContext) unmarshalInputInputBuild(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("items"))
-			it.Items, err = ec.unmarshalOInputItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputItemᚄ(ctx, v)
+			it.Items, err = ec.unmarshalOInputItem2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputItemᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3043,7 +3043,7 @@ func (ec *executionContext) unmarshalInputInputItem(ctx context.Context, obj int
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("attributes"))
-			it.Attributes, err = ec.unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputAttributeᚄ(ctx, v)
+			it.Attributes, err = ec.unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputAttributeᚄ(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3817,7 +3817,7 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAttribute2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttribute(ctx context.Context, sel ast.SelectionSet, v model.Attribute) graphql.Marshaler {
+func (ec *executionContext) marshalNAttribute2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttribute(ctx context.Context, sel ast.SelectionSet, v model.Attribute) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3842,11 +3842,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNBuild2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐBuild(ctx context.Context, sel ast.SelectionSet, v model.Build) graphql.Marshaler {
+func (ec *executionContext) marshalNBuild2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐBuild(ctx context.Context, sel ast.SelectionSet, v model.Build) graphql.Marshaler {
 	return ec._Build(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNBuild2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐBuild(ctx context.Context, sel ast.SelectionSet, v *model.Build) graphql.Marshaler {
+func (ec *executionContext) marshalNBuild2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐBuild(ctx context.Context, sel ast.SelectionSet, v *model.Build) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3856,17 +3856,17 @@ func (ec *executionContext) marshalNBuild2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildh
 	return ec._Build(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNInputAttribute2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputAttribute(ctx context.Context, v interface{}) (*model.InputAttribute, error) {
+func (ec *executionContext) unmarshalNInputAttribute2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputAttribute(ctx context.Context, v interface{}) (*model.InputAttribute, error) {
 	res, err := ec.unmarshalInputInputAttribute(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNInputBuild2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputBuild(ctx context.Context, v interface{}) (model.InputBuild, error) {
+func (ec *executionContext) unmarshalNInputBuild2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputBuild(ctx context.Context, v interface{}) (model.InputBuild, error) {
 	res, err := ec.unmarshalInputInputBuild(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNInputItem2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputItem(ctx context.Context, v interface{}) (*model.InputItem, error) {
+func (ec *executionContext) unmarshalNInputItem2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputItem(ctx context.Context, v interface{}) (*model.InputItem, error) {
 	res, err := ec.unmarshalInputInputItem(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
@@ -3886,7 +3886,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) marshalNItem2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItem(ctx context.Context, sel ast.SelectionSet, v *model.Item) graphql.Marshaler {
+func (ec *executionContext) marshalNItem2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItem(ctx context.Context, sel ast.SelectionSet, v *model.Item) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -3896,7 +3896,7 @@ func (ec *executionContext) marshalNItem2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhu
 	return ec._Item(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNItemSpec2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemSpec(ctx context.Context, sel ast.SelectionSet, v *model.ItemSpec) graphql.Marshaler {
+func (ec *executionContext) marshalNItemSpec2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemSpec(ctx context.Context, sel ast.SelectionSet, v *model.ItemSpec) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -4150,7 +4150,7 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Attribute) graphql.Marshaler {
+func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeᚄ(ctx context.Context, sel ast.SelectionSet, v []model.Attribute) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4177,7 +4177,7 @@ func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋbuildhub-ggᚋbu
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAttribute2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttribute(ctx, sel, v[i])
+			ret[i] = ec.marshalNAttribute2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttribute(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4190,14 +4190,14 @@ func (ec *executionContext) marshalOAttribute2ᚕgithubᚗcomᚋbuildhub-ggᚋbu
 	return ret
 }
 
-func (ec *executionContext) marshalOAttributeSpec2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v model.AttributeSpec) graphql.Marshaler {
+func (ec *executionContext) marshalOAttributeSpec2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v model.AttributeSpec) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AttributeSpec(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOAttributeSpec2ᚕgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v []model.AttributeSpec) graphql.Marshaler {
+func (ec *executionContext) marshalOAttributeSpec2ᚕgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeSpec(ctx context.Context, sel ast.SelectionSet, v []model.AttributeSpec) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4224,7 +4224,7 @@ func (ec *executionContext) marshalOAttributeSpec2ᚕgithubᚗcomᚋbuildhub-gg�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOAttributeSpec2githubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
+			ret[i] = ec.marshalOAttributeSpec2githubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐAttributeSpec(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4276,7 +4276,7 @@ func (ec *executionContext) marshalOFloat2ᚖfloat64(ctx context.Context, sel as
 	return graphql.MarshalFloat(*v)
 }
 
-func (ec *executionContext) unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputAttributeᚄ(ctx context.Context, v interface{}) ([]*model.InputAttribute, error) {
+func (ec *executionContext) unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputAttributeᚄ(ctx context.Context, v interface{}) ([]*model.InputAttribute, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -4292,7 +4292,7 @@ func (ec *executionContext) unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildh
 	res := make([]*model.InputAttribute, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNInputAttribute2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputAttribute(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNInputAttribute2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputAttribute(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -4300,7 +4300,7 @@ func (ec *executionContext) unmarshalOInputAttribute2ᚕᚖgithubᚗcomᚋbuildh
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalOInputItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputItemᚄ(ctx context.Context, v interface{}) ([]*model.InputItem, error) {
+func (ec *executionContext) unmarshalOInputItem2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputItemᚄ(ctx context.Context, v interface{}) ([]*model.InputItem, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -4316,7 +4316,7 @@ func (ec *executionContext) unmarshalOInputItem2ᚕᚖgithubᚗcomᚋbuildhub-gg
 	res := make([]*model.InputItem, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNInputItem2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐInputItem(ctx, vSlice[i])
+		res[i], err = ec.unmarshalNInputItem2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐInputItem(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -4339,7 +4339,7 @@ func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.Sele
 	return graphql.MarshalInt(*v)
 }
 
-func (ec *executionContext) marshalOItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Item) graphql.Marshaler {
+func (ec *executionContext) marshalOItem2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Item) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4366,7 +4366,7 @@ func (ec *executionContext) marshalOItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuil
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNItem2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItem(ctx, sel, v[i])
+			ret[i] = ec.marshalNItem2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItem(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -4379,7 +4379,7 @@ func (ec *executionContext) marshalOItem2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuil
 	return ret
 }
 
-func (ec *executionContext) marshalOItemSpec2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemSpecᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.ItemSpec) graphql.Marshaler {
+func (ec *executionContext) marshalOItemSpec2ᚕᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemSpecᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.ItemSpec) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -4406,7 +4406,7 @@ func (ec *executionContext) marshalOItemSpec2ᚕᚖgithubᚗcomᚋbuildhub-ggᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNItemSpec2ᚖgithubᚗcomᚋbuildhub-ggᚋbuildhubᚋgraphᚋmodelᚐItemSpec(ctx, sel, v[i])
+			ret[i] = ec.marshalNItemSpec2ᚖgithubᚗcomᚋbuildhubᚑggᚋbuildhubᚋcoreᚑbeᚋgraphᚋmodelᚐItemSpec(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

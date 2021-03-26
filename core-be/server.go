@@ -7,7 +7,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/buildhub-gg/buildhub/graph/generated"
+	"github.com/buildhub-gg/buildhub/core-be/graph/generated"
     _ "github.com/joho/godotenv/autoload"
 )
 

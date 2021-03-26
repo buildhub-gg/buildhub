@@ -3,9 +3,9 @@ package graph
 import (
 	"fmt"
 
-	buildPackage "github.com/buildhub-gg/buildhub/build"
-	"github.com/buildhub-gg/buildhub/graph/model"
-	"github.com/buildhub-gg/buildhub/item"
+	buildPackage "github.com/buildhub-gg/buildhub/core-be/build"
+	"github.com/buildhub-gg/buildhub/core-be/graph/model"
+	"github.com/buildhub-gg/buildhub/core-be/item"
 )
 
 func convertInputBuildToOutputBuild(ID string, in *model.InputBuild) *model.Build  {
